@@ -8,24 +8,27 @@
   <script src="https://kit.fontawesome.com/25b124d258.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+  <!-- ================= HEADER ================= -->
   <header class="main-header">
     <nav class="navbar">
-  <div class="collage" id="collage"></div>
-  <div class="overlay"></div>
+      <div class="collage" id="collage"></div>
+      <div class="overlay"></div>
 
-  <div class="logo"><i class="fas fa-film"></i> CineScope</div>
-  <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="#" data-text="Home" id="homeBtn">Home</a></li>
-      <li><a href="#" data-text="About">About</a></li>
-      <li><a href="#" data-text="Contact" id="contactBtn">Contact</a></li>
-    </ul>
-    <button id="themeToggle" class="theme-toggle">🌙</button>
-  </div>
-</nav>
+      <div class="logo"><i class="fas fa-film"></i> CineScope</div>
 
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#" data-text="Home" id="homeBtn">Home</a></li>
+          <li><a href="#" data-text="About">About</a></li>
+          <li><a href="#" data-text="Contact" id="contactBtn">Contact</a></li>
+        </ul>
+        <button id="themeToggle" class="theme-toggle">🌙</button>
+      </div>
+    </nav>
   </header>
 
+  <!-- ================= MAIN ================= -->
   <main>
     <div class="search-align">
       <form id="searchForm" class="search-wrapper">
@@ -46,55 +49,58 @@
       <h2>Movies</h2>
       <div id="moviesGrid" class="result-grid"></div>
     </section>
+
     <section id="seriesSection">
       <h2>TV Shows</h2>
       <div id="seriesGrid" class="result-grid"></div>
     </section>
+
     <section id="gamesSection">
       <h2>Games</h2>
       <div id="gamesGrid" class="result-grid"></div>
     </section>
   </main>
 
-  <!-- Modal -->
+  <!-- ================= MODALS ================= -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
       <div id="modalDetails" class="modal-details"></div>
     </div>
   </div>
+
   <div id="contactModal" class="modal">
-  <div class="modal-content contact-form">
-    <span class="close contact-close">&times;</span>
-    <h2>Contact Us</h2>
-    <form id="contactForm">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" required>
+    <div class="modal-content contact-form">
+      <span class="close contact-close">&times;</span>
+      <h2>Contact Us</h2>
+      <form id="contactForm">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
 
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
 
-      <label for="message">Message</label>
-      <textarea id="message" name="message" rows="4" required></textarea>
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
 
-      <button type="submit">Send</button>
-    </form>
-  </div>
-</div>
-
-
-  <script src="script.js"></script>
-  <footer class="site-footer">
-  <div class="footer-content">
-    <p>© 2025 CineScope. All rights reserved.</p>
-    <div class="footer-links">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-      <a href="#">Support</a>
+        <button type="submit">Send</button>
+      </form>
     </div>
   </div>
-</footer>
 
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© 2025 CineScope. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
 
