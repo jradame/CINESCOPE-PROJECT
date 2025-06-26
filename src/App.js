@@ -8,9 +8,10 @@ import Nav from "./components/Nav";
 function App() {
   return (
     <Router>
-      <div classNmae="App">
-        <Route />
+      <div className="App">
+        
         <Nav />
+        <Route path="/" exact component={Home} />
         <Footer />
       </div>
 
