@@ -3,7 +3,7 @@ import Footer from "./components/Footer";
 import React, { useEffect, useState } from "react";
 import Home from "./pages/Home";
 import Nav from "./components/Nav";
-import Books from "./pages/Books";
+import Books from "./pages/Books1";
 import { books } from "./data";
 import BookInfo from "./pages/BookInfo";
 import Cart from "./pages/Cart";
