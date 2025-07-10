@@ -7,21 +7,19 @@
   --btn-hover: #ca8a04;
 }
 
-/* RESET */
+/* RESET & BASE */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-/* BASE */
 html, body {
   height: 100%;
-  overflow-x: hidden;
   background: var(--bg);
   color: var(--text);
   font-family: 'Segoe UI', sans-serif;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /* HEADER & NAV */
@@ -91,8 +89,7 @@ html, body {
   border-radius: 5px;
   min-width: 200px;
 }
-#typeSelect,
-.search-wrapper button {
+#typeSelect, .search-wrapper button {
   padding: 8px 12px;
   background: var(--card-bg);
   color: var(--text);
@@ -130,8 +127,6 @@ main section h2 {
   gap: 20px;
   justify-content: center;
 }
-
-/* Columns by screen size */
 @media (max-width: 600px) {
   .result-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -182,7 +177,7 @@ main section h2 {
   color: var(--text);
 }
 
-/* MODAL STYLING */
+/* MODAL BASE */
 .modal {
   display: none;
   position: fixed;
@@ -216,6 +211,24 @@ main section h2 {
   right: 16px;
   font-size: 24px;
   cursor: pointer;
+}
+
+/* Slide animation for About & Contact modals */
+.modal.slide {
+  display: flex;
+}
+.modal.slide .modal-content {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+.modal.slide.in .modal-content {
+  transform: translateX(0);
+  opacity: 1;
+}
+.modal.slide.out .modal-content {
+  transform: translateX(100%);
+  opacity: 0;
 }
 
 /* CONTACT FORM */
@@ -273,6 +286,7 @@ main section h2 {
 .footer-links a:hover {
   color: var(--accent);
 }
+
 
 
 

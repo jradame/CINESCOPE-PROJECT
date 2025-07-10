@@ -18,14 +18,54 @@ document.addEventListener('DOMContentLoaded', () => {
   const contactForm = document.getElementById('contactForm');
   const thankYouModal = document.getElementById('thankYouModal');
 
-  function showSkeletons(container) {
-    container.innerHTML = '';
-    for (let i = 0; i < 5; i++) {
-      const s = document.createElement('div');
-      s.className = 'movie-card skeleton-card';
-      container.appendChild(s);
-    }
+  const aboutBtn = document.getElementById('aboutBtn');
+  const aboutModal = document.getElementById('aboutModal');
+  const aboutClose = document.querySelector('.about-close');
+
+  // Slide animation functions
+  function showSlide(modalEl) {
+    modalEl.classList.add('slide', 'in');
+    modalEl.classList.remove('out');
   }
+
+  function hideSlide(modalEl) {
+    modalEl.classList.add('out');
+    modalEl.classList.remove('in');
+    modalEl.addEventListener('transitionend', function cleanup() {
+      modalEl.classList.remove('slide', 'out');
+      modalEl.removeEventListener('transitionend', cleanup);
+    });
+  }
+
+  // Contact modal logic
+  contactBtn.onclick = e => {
+    e.preventDefault();
+    showSlide(contactModal);
+  };
+  contactClose.onclick = () => hideSlide(contactModal);
+
+  // About modal logic
+  aboutBtn.onclick = e => {
+    e.preventDefault();
+    showSlide(aboutModal);
+  };
+  aboutClose.onclick = () => hideSlide(aboutModal);
+
+  // Close modal on click outside
+  window.addEventListener('click', e => {
+    if (e.target === contactModal) hideSlide(contactModal);
+    if (e.target === aboutModal) hideSlide(aboutModal);
+    if (e.target === modal) modal.classList.remove('show');
+  });
+
+  contactForm.onsubmit = e => {
+    e.preventDefault();
+    hideSlide(contactModal);
+    thankYouModal.classList.add('show');
+    setTimeout(() => thankYouModal.classList.remove('show'), 3000);
+  };
+
+  closeBtn.onclick = () => modal.classList.remove('show');
 
   async function searchByType(query, type) {
     const res = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(query)}&type=${type}`);
@@ -33,26 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
     return data.Response === 'True' ? data.Search.slice(0, 5) : [];
   }
 
-  async function performSearch() {
-    const q = input.value.trim();
-    if (!q) return;
-    clearGrids();
-
-    const type = typeSelect.value;
-    showSkeletons(moviesGrid);
-    showSkeletons(seriesGrid);
-    showSkeletons(gamesGrid);
-
-    const [movies, series, games] = await Promise.all([
-      searchByType(q, 'movie'),
-      searchByType(q, 'series'),
-      searchByType(q, 'game')
-    ]);
-
-    clearGrids();
-    if (type === 'movie') renderCards(movies, moviesGrid);
-    if (type === 'series') renderCards(series, seriesGrid);
-    if (type === 'game') renderCards(games, gamesGrid);
+  function showSkeletons(container) {
+    container.innerHTML = '';
+    for (let i = 0; i < 5; i++) {
+      const s = document.createElement('div');
+      s.className = 'movie-card skeleton-card';
+      container.appendChild(s);
+    }
   }
 
   function clearGrids() {
@@ -91,26 +118,31 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.classList.add('show');
   }
 
-  closeBtn.onclick = () => modal.classList.remove('show');
-  window.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('show'); });
+  async function performSearch() {
+    const q = input.value.trim();
+    if (!q) return;
+    clearGrids();
+
+    const type = typeSelect.value;
+    showSkeletons(moviesGrid);
+    showSkeletons(seriesGrid);
+    showSkeletons(gamesGrid);
+
+    const [movies, series, games] = await Promise.all([
+      searchByType(q, 'movie'),
+      searchByType(q, 'series'),
+      searchByType(q, 'game')
+    ]);
+
+    clearGrids();
+    if (type === 'movie') renderCards(movies, moviesGrid);
+    if (type === 'series') renderCards(series, seriesGrid);
+    if (type === 'game') renderCards(games, gamesGrid);
+  }
 
   form.onsubmit = e => {
     e.preventDefault();
     performSearch();
-  };
-
-  contactBtn.onclick = e => {
-    e.preventDefault();
-    contactModal.classList.add('show');
-  };
-  contactClose.onclick = () => contactModal.classList.remove('show');
-  window.addEventListener('click', e => { if (e.target === contactModal) contactModal.classList.remove('show'); });
-
-  contactForm.onsubmit = e => {
-    e.preventDefault();
-    contactModal.classList.remove('show');
-    thankYouModal.classList.add('show');
-    setTimeout(() => thankYouModal.classList.remove('show'), 3000);
   };
 
   const topMovies = ["Dune","Oppenheimer","Barbie","John Wick","Spider-Man"];
@@ -140,12 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initTop();
 });
-
-
-
-
-
-
 
 
 
