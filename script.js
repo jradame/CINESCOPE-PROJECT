@@ -1,33 +1,33 @@
+// 🎬 CineScope JS – All-in-one Search & Modal Logic
+
+
 document.addEventListener('DOMContentLoaded', () => {
   const API_KEY = '2318418c';
+
+  // DOM references
   const form = document.getElementById('searchForm');
   const input = document.getElementById('searchInput');
   const typeSelect = document.getElementById('typeSelect');
-
   const moviesGrid = document.getElementById('moviesGrid');
   const seriesGrid = document.getElementById('seriesGrid');
   const gamesGrid = document.getElementById('gamesGrid');
-
   const modal = document.getElementById('modal');
   const modalDetails = document.getElementById('modalDetails');
   const closeBtn = document.querySelector('.close');
-
   const contactBtn = document.getElementById('contactBtn');
   const contactModal = document.getElementById('contactModal');
   const contactClose = document.querySelector('.contact-close');
   const contactForm = document.getElementById('contactForm');
   const thankYouModal = document.getElementById('thankYouModal');
-
   const aboutBtn = document.getElementById('aboutBtn');
   const aboutModal = document.getElementById('aboutModal');
   const aboutClose = document.querySelector('.about-close');
 
-  // Slide animation functions
+  // ⬇️ Slide modals in/out
   function showSlide(modalEl) {
     modalEl.classList.add('slide', 'in');
     modalEl.classList.remove('out');
   }
-
   function hideSlide(modalEl) {
     modalEl.classList.add('out');
     modalEl.classList.remove('in');
@@ -37,27 +37,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Contact modal logic
+  // 📩 Contact modal logic
   contactBtn.onclick = e => {
     e.preventDefault();
     showSlide(contactModal);
   };
   contactClose.onclick = () => hideSlide(contactModal);
 
-  // About modal logic
+  // ℹ️ About modal logic
   aboutBtn.onclick = e => {
     e.preventDefault();
     showSlide(aboutModal);
   };
   aboutClose.onclick = () => hideSlide(aboutModal);
 
-  // Close modal on click outside
+  // Click outside to close modal
   window.addEventListener('click', e => {
     if (e.target === contactModal) hideSlide(contactModal);
     if (e.target === aboutModal) hideSlide(aboutModal);
     if (e.target === modal) modal.classList.remove('show');
   });
 
+  // 🚀 Fake submit behavior for Contact form
   contactForm.onsubmit = e => {
     e.preventDefault();
     hideSlide(contactModal);
@@ -65,14 +66,17 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => thankYouModal.classList.remove('show'), 3000);
   };
 
+  // ❌ Close details modal
   closeBtn.onclick = () => modal.classList.remove('show');
 
+  // 🔍 Basic OMDb fetch by type
   async function searchByType(query, type) {
     const res = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(query)}&type=${type}`);
     const data = await res.json();
     return data.Response === 'True' ? data.Search.slice(0, 5) : [];
   }
 
+  // 🕳 Skeleton loader cards
   function showSkeletons(container) {
     container.innerHTML = '';
     for (let i = 0; i < 5; i++) {
@@ -82,12 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // ♻️ Clear all 3 content areas
   function clearGrids() {
     moviesGrid.innerHTML = '';
     seriesGrid.innerHTML = '';
     gamesGrid.innerHTML = '';
   }
 
+  // 🖼 Render cards to UI
   function renderCards(items, container) {
     items.forEach(item => {
       const c = document.createElement('div');
@@ -104,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // 🧾 Load single title details
   async function loadDetails(id) {
     const res = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&i=${id}&plot=full`);
     const d = await res.json();
@@ -118,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.classList.add('show');
   }
 
+  // 🎯 Fire off search + render
   async function performSearch() {
     const q = input.value.trim();
     if (!q) return;
@@ -140,11 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (type === 'game') renderCards(games, gamesGrid);
   }
 
+  // Submit trigger
   form.onsubmit = e => {
     e.preventDefault();
     performSearch();
   };
 
+  // 🏆 Demo content to preload on "Home"
   const topMovies = ["Dune","Oppenheimer","Barbie","John Wick","Spider-Man"];
   const topShows = ["Stranger Things","Breaking Bad","Loki","The Boys","The Mandalorian"];
   const topGames = ["Grand Theft Auto V","Cyberpunk 2077","Halo","Zelda","Final Fantasy"];
@@ -164,14 +174,13 @@ document.addEventListener('DOMContentLoaded', () => {
     loadTop(topGames, 'game', gamesGrid);
   }
 
+  // 🏠 Home button reinitializes demo content
   document.getElementById('homeBtn').onclick = e => {
     e.preventDefault();
     input.value = '';
     initTop();
   };
 
+  // 🚦 Load top 5 default sets on first visit
   initTop();
 });
-
-
-

@@ -1,3 +1,9 @@
+/* ===============================
+   🎬 CineScope Stylesheet
+   Author: Justin Adame
+   Purpose: Styling layout, theme, and interactivity
+   =============================== */
+
 :root {
   --bg: #111;
   --card-bg: #222;
@@ -7,7 +13,7 @@
   --btn-hover: #ca8a04;
 }
 
-/* RESET & BASE */
+/* === RESET & BASE === */
 * {
   margin: 0;
   padding: 0;
@@ -22,7 +28,7 @@ html, body {
   overflow-x: hidden;
 }
 
-/* HEADER & NAV */
+/* === NAVIGATION === */
 .main-header {
   padding: 20px;
 }
@@ -57,7 +63,7 @@ html, body {
   color: var(--accent);
 }
 
-/* SEARCH */
+/* === SEARCH BAR AREA === */
 .search-align {
   max-width: 1200px;
   margin: 20px auto;
@@ -106,7 +112,7 @@ html, body {
   background: var(--btn-hover);
 }
 
-/* MAIN CONTENT */
+/* === MAIN GRID & HEADINGS === */
 main {
   max-width: 1200px;
   margin: auto;
@@ -121,7 +127,7 @@ main section h2 {
   font-size: 1.5rem;
 }
 
-/* GRID LAYOUT */
+/* === RESULT GRID LAYOUT === */
 .result-grid {
   display: grid;
   gap: 20px;
@@ -140,7 +146,7 @@ main section h2 {
   .result-grid { grid-template-columns: repeat(5, 1fr); }
 }
 
-/* CARD STYLING */
+/* === MOVIE CARD STYLING === */
 .movie-card {
   background: var(--card-bg);
   border-radius: 5px;
@@ -177,7 +183,7 @@ main section h2 {
   color: var(--text);
 }
 
-/* MODAL BASE */
+/* === MODALS === */
 .modal {
   display: none;
   position: fixed;
@@ -213,10 +219,8 @@ main section h2 {
   cursor: pointer;
 }
 
-/* Slide animation for About & Contact modals */
-.modal.slide {
-  display: flex;
-}
+/* === SLIDE MODALS FOR ABOUT/CONTACT === */
+.modal.slide { display: flex; }
 .modal.slide .modal-content {
   transform: translateX(-100%);
   opacity: 0;
@@ -231,7 +235,7 @@ main section h2 {
   opacity: 0;
 }
 
-/* CONTACT FORM */
+/* === CONTACT FORM === */
 .modal-content.contact-form {
   max-width: 500px;
   padding: 30px;
@@ -267,7 +271,7 @@ main section h2 {
   background: var(--btn-hover);
 }
 
-/* FOOTER */
+/* === FOOTER === */
 .site-footer {
   text-align: center;
   padding: 30px 20px;
@@ -286,6 +290,7 @@ main section h2 {
 .footer-links a:hover {
   color: var(--accent);
 }
+
 
 
 
