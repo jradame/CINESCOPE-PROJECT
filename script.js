@@ -187,11 +187,15 @@ document.addEventListener("DOMContentLoaded", () => {
   function initTop() {
     loadTop(topMovies, "movie", moviesGrid);
     loadTop(topShows, "tv", seriesGrid);
-    gamesGrid.innerHTML = `<div class="movie-card">
-      <img src="${PLACEHOLDER}" alt="Games">
-      <div class="card-info"><h3>Games coming soon</h3></div>
-    </div>`;
-  }
+    gamesGrid.innerHTML = gamesGrid.innerHTML = `
+  <div class="movie-card" style="display: flex; align-items: center; justify-content: center; height: 240px;">
+    <div class="card-info" style="text-align: center;">
+      <h3>Games coming soon</h3>
+    </div>
+  </div>
+`;
+
+}
 
   document.getElementById("homeBtn").onclick = (e) => {
     e.preventDefault();
