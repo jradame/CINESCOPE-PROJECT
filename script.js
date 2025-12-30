@@ -1,6 +1,5 @@
 // 🎬 CineScope JS – All-in-one Search & Modal Logic
 
-
 document.addEventListener('DOMContentLoaded', () => {
   const API_KEY = '2318418c';
 
@@ -100,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
       c.className = 'movie-card';
       setTimeout(() => c.style.opacity = 1, 100);
       c.innerHTML = `
-        <img src="${item.Poster !== 'N/A' ? item.Poster : 'https://via.placeholder.com/160x240'}" alt="${item.Title}">
+        <img src="${item.Poster !== 'N/A' ? item.Poster : 'https://via.placeholder.com/160x240?text=No+Image'}" alt="${item.Title}">
         <div class="card-info">
           <h3>${item.Title}</h3>
           <p>${item.Year}</p>
@@ -116,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const d = await res.json();
     modalDetails.innerHTML = `
       <div class="modal-details">
-        <img src="${d.Poster !== 'N/A' ? d.Poster : ''}" alt="${d.Title}">
+        <img src="${d.Poster !== 'N/A' ? d.Poster : 'https://via.placeholder.com/160x240?text=No+Image'}" alt="${d.Title}">
         <h2>${d.Title} (${d.Year})</h2>
         <p><strong>Genre:</strong> ${d.Genre}</p>
         <p><strong>Rating:</strong> ${d.imdbRating}</p>
@@ -183,4 +182,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 🚦 Load top 5 default sets on first visit
   initTop();
+
+  // 🧯 Handle broken images with placeholder fallback
+  document.body.addEventListener("error", function (e) {
+    const target = e.target;
+    if (target.tagName === "IMG" && !target.dataset.fallback) {
+      target.src = "https://via.placeholder.com/160x240?text=No+Image";
+      target.dataset.fallback = "true"; // prevent infinite loop
+    }
+  }, true);
 });
